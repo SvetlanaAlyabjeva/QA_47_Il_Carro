@@ -58,4 +58,34 @@ public class LoginTests extends ApplicationManager {
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validateMessageErrorPassword(), "loginNegativeTest_emptyPassword");
     }
+
+    @Test
+    public void loginNegativeTest_wrongPassword(){
+        UserLombok user = UserLombok.builder()
+                .username("email1@mail.ru")
+                .password("123")
+                .build();
+        loginPage.typeLoginForm(user.getUsername(), user.getPassword());
+        Assert.assertTrue(loginPage.validatePopUpMessage("Login or Password incorrect"), "loginNegativeTest_wrongPassword");
+    }
+
+    @Test
+    public void loginNegativeTest_emptyEmail(){
+        UserLombok user = UserLombok.builder()
+                .username("")
+                .password("ema31il@Mail.ru")
+                .build();
+        loginPage.typeLoginForm(user.getUsername(), user.getPassword());
+        Assert.assertTrue(loginPage.validateMessageErrorEmail(), "loginNegativeTest_emptyEmail");
+    }
+
+    @Test
+    public void loginNegativeTest_wrongFormatEmail(){
+        UserLombok user = UserLombok.builder()
+                .username("email1mail.ru")
+                .password("ema31il@Mail.ru")
+                .build();
+        loginPage.typeLoginForm(user.getUsername(), user.getPassword());
+        Assert.assertTrue(loginPage.validateMessageErrorFormatEmail(), "loginNegativeTest_wrongFormatEmail");
+    }
 }
