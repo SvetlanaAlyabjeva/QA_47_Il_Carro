@@ -18,8 +18,6 @@ public class LoginPage extends BasePage {
     WebElement inputPassword;
     @FindBy(xpath = "//button[text() = 'Y’alla!']")
     WebElement btnYalla;
-    @FindBy(xpath = "//div[@class='dialog-container']")
-    WebElement popUpMessage;
     @FindBy(xpath = "//div[text() = ' Password is required ']")
     WebElement messageErrorPassword;
     @FindBy(xpath = "//div[text() = ' Email is required ']")
@@ -28,14 +26,11 @@ public class LoginPage extends BasePage {
     WebElement messageErrorFormatEmail;
 
 
+
     public void typeLoginForm(String email, String password){
         inputEmail.sendKeys(email);
         inputPassword.sendKeys(password);
         btnYalla.click();
-    }
-
-    public boolean validatePopUpMessage(String text){
-        return isTextElementPresent(popUpMessage, text);
     }
 
     public boolean validateMessageErrorPassword(){
