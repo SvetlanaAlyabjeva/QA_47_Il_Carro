@@ -64,8 +64,9 @@ public class SignUpTests extends ApplicationManager {
         signUpPage.typeSignUpForm(user);
         signUpPage.clickCheckbox();
         signUpPage.clickBtnYalla();
-        Assert.assertTrue(signUpPage.validateErrorMessage("Name is requirereed"));
+        Assert.assertTrue(signUpPage.validateErrorMessage("Name is required"));
     }
+
     @Test
     public void signUpNegativeTest_WOLastname() {
         UserLombok user = UserLombok.builder()
@@ -79,6 +80,7 @@ public class SignUpTests extends ApplicationManager {
         signUpPage.clickBtnYalla();
         Assert.assertTrue(signUpPage.validateErrorMessage("Last name is required"));
     }
+
     @Test
     public void signUpNegativeTest_WOLastemail() {
         UserLombok user = UserLombok.builder()
@@ -92,6 +94,7 @@ public class SignUpTests extends ApplicationManager {
         signUpPage.clickBtnYalla();
         Assert.assertTrue(signUpPage.validateErrorMessage("Email is required"));
     }
+
     @Test
     public void signUpNegativeTest_WOPassword() {
         UserLombok user = UserLombok.builder()
@@ -104,6 +107,48 @@ public class SignUpTests extends ApplicationManager {
         signUpPage.clickCheckbox();
         signUpPage.clickBtnYalla();
         Assert.assertTrue(signUpPage.validateErrorMessage("Password is required"));
+    }
+
+    @Test
+    public void signUpNegativeTest_WrongFormatMail() {
+        UserLombok user = UserLombok.builder()
+                .firstName("booby")
+                .lastName("boom")
+                //.username(generateEmail(7))
+                .username("123gmail.com")
+                .password("Password123!")
+                .build();
+        signUpPage.typeSignUpForm(user);
+        signUpPage.clickCheckbox();
+        signUpPage.clickBtnYalla();
+        Assert.assertTrue(signUpPage.validateErrorMessage("Wrong email format"));
+    }
+
+    @Test
+    public void signUpNegativeTest_WrongFormatPassShort() {
+        UserLombok user = UserLombok.builder()
+                .firstName("booby")
+                .lastName("boom")
+                .username(generateEmail(7))
+                .password("Pad123!")
+                .build();
+        signUpPage.typeSignUpForm(user);
+        signUpPage.clickCheckbox();
+        signUpPage.clickBtnYalla();
+        Assert.assertTrue(signUpPage.validateErrorMessage("Password must contain minimum 8 symbols"));
+    }
+     @Test
+    public void signUpNegativeTest_WrongFormatPassSymbols () {
+        UserLombok user = UserLombok.builder()
+                .firstName("booby")
+                .lastName("boom")
+                .username(generateEmail(7))
+                .password("Password1234")
+                .build();
+        signUpPage.typeSignUpForm(user);
+        signUpPage.clickCheckbox();
+        signUpPage.clickBtnYalla();
+        Assert.assertTrue(signUpPage.validateErrorMessage("Password must contain 1 uppercase letter, 1 lowercase letter, 1 number and one special symbol of [@$#^&*!]"));
     }
 
 }
