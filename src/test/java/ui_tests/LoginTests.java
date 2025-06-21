@@ -7,6 +7,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
+
+import java.lang.reflect.Method;
+
 import static utils.RandomUtils.*;
 
 public class LoginTests extends ApplicationManager {
@@ -15,14 +18,15 @@ public class LoginTests extends ApplicationManager {
     LoginPage loginPage;
 
     @BeforeMethod
-    public void goToLoginPage(){
+    public void goToLoginPage() {
         homePage = new HomePage(getDriver());
         homePage.clickBtnLoginHeader();
         loginPage = new LoginPage(getDriver());
     }
 
     @Test
-    public void loginPositiveTest(){
+    public void loginPositiveTest(Method method) {
+        logger.info("Method name>>" + method.getName());
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -30,17 +34,17 @@ public class LoginTests extends ApplicationManager {
     }
 
     @Test
-    public void loginPositiveTestLombok(){
+    public void loginPositiveTestLombok() {
         UserLombok user = UserLombok.builder()
                 .username("email1@mail.ru")
                 .password("ema31il@Mail.ru")
-                    .build();
+                .build();
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validatePopUpMessage("Logged in success"), "test upal");
     }
 
     @Test
-    public void loginNegativeTest_unregUser(){
+    public void loginNegativeTest_unregUser() {
         UserLombok user = UserLombok.builder()
                 .username(generateEmail(10))
                 .password("ema31il@Mail.ru")
@@ -50,7 +54,7 @@ public class LoginTests extends ApplicationManager {
     }
 
     @Test
-    public void loginNegativeTest_emptyPassword(){
+    public void loginNegativeTest_emptyPassword() {
         UserLombok user = UserLombok.builder()
                 .username("email1@mail.ru")
                 .password("")
@@ -60,7 +64,7 @@ public class LoginTests extends ApplicationManager {
     }
 
     @Test
-    public void loginNegativeTest_wrongPassword(){
+    public void loginNegativeTest_wrongPassword() {
         UserLombok user = UserLombok.builder()
                 .username("email1@mail.ru")
                 .password("123")
@@ -70,7 +74,7 @@ public class LoginTests extends ApplicationManager {
     }
 
     @Test
-    public void loginNegativeTest_emptyEmail(){
+    public void loginNegativeTest_emptyEmail() {
         UserLombok user = UserLombok.builder()
                 .username("")
                 .password("ema31il@Mail.ru")
@@ -80,7 +84,7 @@ public class LoginTests extends ApplicationManager {
     }
 
     @Test
-    public void loginNegativeTest_wrongFormatEmail(){
+    public void loginNegativeTest_wrongFormatEmail() {
         UserLombok user = UserLombok.builder()
                 .username("email1mail.ru")
                 .password("ema31il@Mail.ru")
