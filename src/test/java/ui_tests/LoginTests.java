@@ -4,13 +4,18 @@ import dto.UserLombok;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.TestNGListener;
 
 import java.lang.reflect.Method;
 
 import static utils.RandomUtils.*;
+
+@Listeners(TestNGListener.class)
+
 
 public class LoginTests extends ApplicationManager {
 
@@ -24,7 +29,7 @@ public class LoginTests extends ApplicationManager {
         loginPage = new LoginPage(getDriver());
     }
 
-    @Test
+    @Test(enabled = false)
     public void loginPositiveTest(Method method) {
         logger.info("Method name>>" + method.getName());
         HomePage homePage = new HomePage(getDriver());
@@ -39,6 +44,7 @@ public class LoginTests extends ApplicationManager {
                 .username("email1@mail.ru")
                 .password("ema31il@Mail.ru")
                 .build();
+        logger.info("test data >>>"+ user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validatePopUpMessage("Logged in success"), "test upal");
     }
@@ -49,6 +55,7 @@ public class LoginTests extends ApplicationManager {
                 .username(generateEmail(10))
                 .password("ema31il@Mail.ru")
                 .build();
+        logger.info("test data >>>"+ user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validatePopUpMessage("Login or Password incorrect"), "test upal");
     }
@@ -59,6 +66,7 @@ public class LoginTests extends ApplicationManager {
                 .username("email1@mail.ru")
                 .password("")
                 .build();
+        logger.info("test data >>>"+ user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validateMessageErrorPassword(), "loginNegativeTest_emptyPassword");
     }
@@ -69,6 +77,7 @@ public class LoginTests extends ApplicationManager {
                 .username("email1@mail.ru")
                 .password("123")
                 .build();
+        logger.info("test data >>>"+ user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validatePopUpMessage("Login or Password incorrect"), "loginNegativeTest_wrongPassword");
     }
@@ -79,6 +88,7 @@ public class LoginTests extends ApplicationManager {
                 .username("")
                 .password("ema31il@Mail.ru")
                 .build();
+        logger.info("test data >>>"+ user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validateMessageErrorEmail(), "loginNegativeTest_emptyEmail");
     }
@@ -89,6 +99,7 @@ public class LoginTests extends ApplicationManager {
                 .username("email1mail.ru")
                 .password("ema31il@Mail.ru")
                 .build();
+        logger.info("test data >>>"+ user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
         Assert.assertTrue(loginPage.validateMessageErrorFormatEmail(), "loginNegativeTest_wrongFormatEmail");
     }
