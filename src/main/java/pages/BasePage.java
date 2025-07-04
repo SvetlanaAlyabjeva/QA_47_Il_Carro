@@ -1,10 +1,15 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.HeaderMenuItem;
+
+import java.time.Duration;
 
 public abstract class BasePage {
 
@@ -68,4 +73,13 @@ public abstract class BasePage {
         return element.isEnabled();
     }
 
+    //document.querySelector("button[type='submit']").removeAttribute("disabled")
+    public void removeDisabledBtnSearch(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='submit']\").removeAttribute(\"disabled\")");
+    }
+public boolean validateUrl(String part){
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlContains(part));
+        return true;
+}
 }

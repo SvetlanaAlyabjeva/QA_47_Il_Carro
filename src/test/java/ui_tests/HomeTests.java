@@ -14,4 +14,6 @@ public class HomeTests extends ApplicationManager {
         System.out.println("hello!");
         HomePage homePage = new HomePage(getDriver());
     }
+
+
 }
