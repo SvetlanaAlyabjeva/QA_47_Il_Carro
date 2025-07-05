@@ -9,12 +9,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import java.time.LocalDate;
-
+import static utils.PropertiesReader.*;
 public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         setDriver(driver);
-        driver.get("https://ilcarro.web.app/search");
+       // driver.get("https://ilcarro.web.app/search");
+        driver.get(getProperty("login.properties", "url"));
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 

@@ -10,6 +10,7 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.SignUpPage;
 import utils.HeaderMenuItem;
+import utils.RetryAnalyzer;
 import utils.TestNGListener;
 
 import static utils.RandomUtils.*;
@@ -28,7 +29,7 @@ public class SignUpTests extends ApplicationManager {
         signUpPage = clickButtonsOnHeader(HeaderMenuItem.SIGN_UP);
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void signUpPositiiveTest() {
         UserLombok user = UserLombok.builder()
                 .firstName("booby")

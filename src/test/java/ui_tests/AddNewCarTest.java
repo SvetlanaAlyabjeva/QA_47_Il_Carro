@@ -16,6 +16,7 @@ import utils.TestNGListener;
 
 import static pages.BasePage.*;
 import static utils.RandomUtils.*;
+import static utils.PropertiesReader.*;
 
 @Listeners(TestNGListener.class)
 public class AddNewCarTest extends ApplicationManager {
@@ -26,7 +27,8 @@ public class AddNewCarTest extends ApplicationManager {
     public void login() {
         new HomePage(getDriver());
         loginPage = clickButtonsOnHeader(HeaderMenuItem.LOGIN);
-        loginPage.typeLoginForm("email1@mail.ru", "ema31il@Mail.ru");
+        //loginPage.typeLoginForm("email1@mail.ru", "ema31il@Mail.ru");
+        loginPage.typeLoginForm(getProperty("login.properties","email"), getProperty("login.properties", "password"));
         letCarWorkPage = clickButtonsOnHeader(HeaderMenuItem.LET_CAR_WORK);
     }
 
